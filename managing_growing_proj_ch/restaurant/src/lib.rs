@@ -1,3 +1,10 @@
+// When using multiple multiple parts of the same path,
+// that can be done as seen below
+use std::{cmp::Ordering, io};
+
+// Also possible to import all public items within a scope
+use std::collections::*;
+
 mod front_of_house {
     pub mod hosting {
         pub fn add_to_waitlist() {}
@@ -14,12 +21,27 @@ mod front_of_house {
     }
 }
 
+//Declaring with 'use' keyword for reuse
+use crate::front_of_house::hosting;
+
+//Declaring with 'use' & 'pub' keyword for re-exporting
+pub use crate::front_of_house::hosting;
+
+// Declaring with 'use' and aliasing
+use crate::front_of_house::serving as ToServe;
+
 pub fn eat_at_restaurant() {
+  // Reuse with 'use' keyword
+  hosting::add_to_waitlist();
+
   // Absolute path
   crate::front_of_house::hosting::add_to_waitlist();
 
   // Relative path
   front_of_house::hosting::add_to_waitlist();
+
+  // Reuse with 'use' plus alias
+  ToServe.take_order();
 }
 
 fn deliver_order() {}
@@ -45,6 +67,12 @@ mod back_of_house {
                 seasonal_fruit: String::from("peaches"),
             }
         }
+    }
+
+    // Unlike structs, all enum variants are public by default
+    pub enum Appetizer {
+        Soup,
+        Salad,
     }
 }
 
