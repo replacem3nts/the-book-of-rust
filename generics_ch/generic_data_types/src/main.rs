@@ -1,7 +1,87 @@
+// <-------------------- Performance Characteristics of Generics -------------------->
+// Generic types will not cause programs to run any slower than they otherwise would
+// when using concrete types (woohoo!)
+
+// Under the hood, when Rust compiles, takes all instances of generics and converts
+// them into distinct concrete types. So a generic:
+
+enum Thing<T> {
+    x: T,
+}
+
+// with an i32 version and an f64 version, at compilation will become something like:
+
+enum Thing_i32 {
+    x: i32,
+}
+
+enum Thing_f64 {
+    x: f64,
+}
 
 // <-------------------- Method Defintions -------------------->
-// <-------------------- Enum Defintions -------------------->
+// Also possible to use different types in a struct definition and the method
+// signatures of that same struct:
+struct Point<X1, Y1> {
+    x: X1,
+    y: Y1,
+}
 
+impl<X1, Y1> Point<X1, Y1> {
+    fn mixup<X2, Y2>(
+        self,
+        other: Point<X2, Y2>,
+    ) -> Point<X1, Y2> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+
+
+// In contrast to the example below, we could choose to constrain the generic type for
+// which the function can be used:
+
+impl Point<i32> {
+    fn distance_from_origin(&self) -> i32 {
+      (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}
+
+// Below code takes the earlier example with a coordinate struct and implements a "getter"
+// method that makes use of the generic typing.
+// NOTE: By declaring the generic type after "impl" Rust knows that the type inside the Point
+// T is a generic type and NOT a concrete type
+struct Point<T> {
+    x: T,
+    y: T
+}
+
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
+fn main() {
+    let p = Point { x: 5, y: 10 };
+    println!("p.x = {}", p.x());
+}
+
+
+// <-------------------- Enum Defintions -------------------->
+// Very straightforward usecases that have already been covered such as the "Option"
+// as well the "Result" as shown below:
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
 
 // <-------------------- Struct Defintions -------------------->
 // Since the below code does not restrict the possible types for "T",
