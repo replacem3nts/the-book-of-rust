@@ -51,6 +51,8 @@
 //
 // error: test failed, to rerun pass '--lib'
 
+// <---------- Checking Results with the assert! Macro ---------->
+
 fn main() {
     println!("Hello, world!");
 }
