@@ -52,6 +52,20 @@
 // error: test failed, to rerun pass '--lib'
 
 // <---------- Checking Results with the assert! Macro ---------->
+// [see lines 39 - 51 in the adder directory]
+// Pretty much is what it says it is, 'assert!' accepts an expression which passes
+// when it evalutes to true and fails when it evaluates to false
+
+// <---------- Testing equality with assert_eq! and assert_ne! ---------->
+// Providing an expected value to test that a function produces it correctly is so
+// common that the standard library provides two out of the box macros for that ver
+// purpose.
+
+// assert_eq! - compares two arguments for equality
+// assert_ne! - compares two arguments for inequality
+// will also print the two values to make it easier to see why it failed
+
+// under the surface, the macros use the '==' and the '!=' operators respectively
 
 fn main() {
     println!("Hello, world!");
