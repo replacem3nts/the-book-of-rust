@@ -67,6 +67,38 @@
 
 // under the surface, the macros use the '==' and the '!=' operators respectively
 
-fn main() {
-    println!("Hello, world!");
+// <---------------- Adding Custom Failure Messages ---------------->
+// With all of the previously discussed macros, arguments specified after the
+// required arguments will be passed to the format! macro
+// See example below:
+
+#[test]
+fn greeting_contains_name() {
+  let result = greeting("Carol");
+  assert!(
+    result.contains("Carol"),
+    "Greeting did not contain name, value was `{result}`"
+  );
 }
+
+// <---------------- Checking for Panics with should_panic ---------------->
+// Testing can also be used to check that our code is erroring when it should be
+// This can be done using the attribute 'should_panic': if code inside the function
+// panics, it passes (and visa versa)
+
+// #[test]
+// #[should_panic] <--THING that does what we just talked about
+// fn greater_than_100() {
+//     Guess::new(200);
+// }
+
+// There is a weakness to 'should_panic' which is that a fn which panics for a reason
+// other than the one which we intended, will still pass. To fix this, we can add an
+// optional 'expected' attribute which will check that the failure message contains
+// the provided text:
+
+// #[test]
+// #[should_panic(expected = "less than or equal to 100")] <--PASSING failure text
+// fn greater_than_100() {
+//     Guess::new(200);
+// }
