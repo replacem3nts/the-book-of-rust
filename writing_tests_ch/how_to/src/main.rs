@@ -102,3 +102,24 @@ fn greeting_contains_name() {
 // fn greater_than_100() {
 //     Guess::new(200);
 // }
+
+// <---------------- Using Result<T, E> in Tests ---------------->
+// So far all tests have failed by panicking--alternatively, tests can be written
+// that use Result<T, E>, ex below:
+
+
+// #[cfg(test)]
+// mod tests {
+//     #[test]
+//     fn it_works() -> Result<(), String> {
+//         if 2 + 2 == 4 {
+//             Ok(())
+//         } else {
+//             Err(String::from("two plus two does not equal four"))
+//         }
+//     }
+// }
+
+// With Result<T, E> you can use the question mark operator in test bodies which allows
+// you to write tests that will fail if any operation within them returns an Err variant
+// NOTE: you can't use the '#[should_panic]' notation with these type of tests
