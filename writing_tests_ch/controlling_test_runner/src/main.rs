@@ -36,6 +36,38 @@
 // $ cargo test -- --show-output
 // ---------------------------------
 
-fn main() {
-    println!("Hello, world!");
-}
+// <--------------- Running a Subset of Tests by Name  --------------->
+// Test names can be passed to the 'cargo test' command to achieve ^
+
+// To run a single test, pass the name of the test function to 'cargo test':
+
+// ---------------------------------
+// $ cargo test add_one_hundred
+// ---------------------------------
+
+// Cannot specify multiple names, will only read the first value
+// To run multiple tests: you can specify part of a name. For instance,
+// if we had a number of text functions with 'add' contained in the name,
+// the below command would run each of those
+
+// ---------------------------------
+// $ cargo test add
+// ---------------------------------
+
+// <------ Ignoring Some Tests Unless Specifically Requested  ------>
+// It is possible to add an attribute to exclude it as shown in the example below:
+
+
+// #[test]
+// #[ignore]
+// fn expensive_test() {
+//     // code that takes an hour to run
+// }
+
+// This prevents you from having to cherry pick around expensive tests
+// Then, in cases where we would like those expensive tests included, we can use:
+
+// ---------------------------------
+// $ cargo test -- --ignored
+// ---------------------------------
+
