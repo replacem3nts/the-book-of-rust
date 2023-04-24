@@ -42,8 +42,10 @@
 // query at index 1 (binary name is at 0), file path at index 2
 
 // <----------- Reading a File ----------->
+// To peform this function, we'll use another part of the standard library:
+// the 'fs' crate (same naming convention as node)
+// 'fs::read_to_string' opens a file at a specified path and returns a std::io::Result<String>
+// containing the file's contents
 
+// <----------- Refactoring to Improve Modularity and Erros ----------->
 
-fn main() {
-    println!("Hello, world!");
-}
