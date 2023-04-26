@@ -49,3 +49,18 @@
 
 // <----------- Refactoring to Improve Modularity and Erros ----------->
 
+// <----------- Separation of Concerns for Binary Projects
+// Rust community has developed guidelines for how to do this when the
+// 'main' file starts getting too large in a project:
+//  - Split project into main.rs and lib.rs files and move program logic into lib.rs
+//  - As long as command line parsing logic remains small, it can remain in main.rs
+//  - When command line logic gets complicated, extract it from main.rs to lib.rs
+
+// Responsibilities that remain with main.rs file include:
+// - Calling command line parsing logic with arg values
+// - Setting up any other configuration
+// - Calling a 'run' function in lib.rs
+// - Handling the error if 'run' returns an error
+
+// ^ Since main.rs cannot be tested directly, moving logic out into lib.rs lets you test it while
+// main.rs logic can be verified by correctness by reading it
