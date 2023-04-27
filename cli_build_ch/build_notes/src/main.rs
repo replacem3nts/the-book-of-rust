@@ -47,7 +47,7 @@
 // 'fs::read_to_string' opens a file at a specified path and returns a std::io::Result<String>
 // containing the file's contents
 
-// <----------- Refactoring to Improve Modularity and Erros ----------->
+// <----------- Refactoring to Improve Modularity and Errors ----------->
 
 // <----------- Separation of Concerns for Binary Projects
 // Rust community has developed guidelines for how to do this when the
@@ -64,3 +64,20 @@
 
 // ^ Since main.rs cannot be tested directly, moving logic out into lib.rs lets you test it while
 // main.rs logic can be verified by correctness by reading it
+
+
+// <-------------------- Fixing the Error Handling -------------------->
+//  1. added a arg check to the function and threw a panic if too few,
+//  2. removed questionable use of panic and replaced with proper Result<Ok, Err> in build fn
+
+// use std::process;
+// fn main() {
+//      let args: Vec<String> = env::args().collect();
+//
+//      let config = Config::build(&args).unwrap_or_else(|err| { <--UNWRAP OR ELSE method here allows
+//                                                     // use to define our own custom error handling
+//                                                     // uses closure to invoke an anon fn
+//          println!("Problem parsing arguments: {err}"); <--SPECIFIES error using return ERR value from build
+//          process::exit(1); <-- STOPS program immediately and returns number passed as an error status code
+// });
+// --snip--
